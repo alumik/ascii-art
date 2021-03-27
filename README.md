@@ -1,5 +1,7 @@
 # ASCII Art
 
+An image to ASCII art converter.
+
 ## Dependencies
 
 Install dependencies by
