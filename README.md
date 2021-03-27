@@ -1,5 +1,7 @@
 # ASCII Art
 
+[![license-MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/AlumiK/ascii-art/blob/main/LICENSE)
+
 An image to ASCII art converter.
 
 ## Dependencies
