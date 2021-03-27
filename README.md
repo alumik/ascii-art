@@ -1,18 +1,18 @@
-# ASCII 字符画
+# ASCII Art
 
-## 前置要求
+## Dependencies
 
-该脚本依赖于 pillow 库。使用以下命令安装。
+Install dependencies by
 
 ```
 pip install pillow
 ```
 
-## 使用说明
+## Usage
 
-### 直接运行
+### As a Script
 
-使用 `-h|--help` 参数查看使用说明。
+Check help messages with `-h|--help`.
 
 ```
 > python ascii_art.py -h
@@ -33,36 +33,31 @@ optional arguments:
                         set the max size of the output
 ```
 
-默认输出到控制台，也可以使用 `> file` 的形式输出到文件。
-
-### 作为模块导入
+### As a Module
 
 ```python
 import ascii_art
 ```
 
-可用接口如下。
+#### API
 
-- ascii_art.to_grayscale(path, max_size, ratio)
+- `ascii_art.to_grayscale(path, max_size, ratio)`
 
-    `path` 输入文件路径。
+    - `path`: The path of the input image.
+    - `max_size`: The maximum size of the width and height of the output image.
+    - `ratio`: The ratio of the width and height of the output image.
 
-    `max_size` 长宽最大尺寸（像素）。
+    Convert the input image to grayscale.
 
-    `ratio` 比例。
-
-    将输入图片转换为指定大小和比例的灰度图片。
-
-- ascii_art.make_art(image, charset)
+- `ascii_art.make_art(image, charset)`
   
-    `image` 灰度图片。
+    - `image`: A grayscale image.
+    - `charset`: The charset used in the ASCII art. The default value is ``$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. ``.
 
-    `charset` 字符集，默认值为 ``$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. `` 。
+    Convert a grayscale image into ASCII art.
 
-    将灰度图片转换为字符画矩阵。
+- `ascii_art.print_art(art)`
 
-- ascii_art.print_art(art)
+    - `art`: The ASCII art.
 
-    `art` 字符画矩阵。
-
-    打印字符画到标准输出。
+    Print the ASCII art to the standard output.
