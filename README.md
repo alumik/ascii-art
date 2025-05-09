@@ -1,6 +1,7 @@
 # ASCII Art
 
 ![version-1.0.0](https://img.shields.io/badge/version-1.0.0-blue)
+![python->=3.9](https://img.shields.io/badge/python->=3.9-blue?logo=python&logoColor=white)
 ![GitHub License](https://img.shields.io/github/license/alumik/ascii-art)
 
 An image to ASCII art converter.
