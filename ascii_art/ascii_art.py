@@ -1,48 +1,44 @@
+import sys
+
+sys.path.append("../")
+
 import argparse
 
 from PIL import Image
-from typing import Sequence
 
 _DEFAULT_CHARSET = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,"^`\'. '
 
 
 def get_args():
-    parser = argparse.ArgumentParser(
-        description='create beautiful ascii arts',
-        allow_abbrev=False)
+    parser = argparse.ArgumentParser(description='create beautiful ascii arts from images')
     parser.add_argument(
-        '-c',
-        '--charset',
+        '-c', '--charset',
         type=str,
-        default=[_DEFAULT_CHARSET],
-        nargs=1,
-        help='set the charset used in the output')
+        default=_DEFAULT_CHARSET,
+        help='set the charset used in the output, ordered from dark to light',
+    )
     parser.add_argument(
-        '-r',
-        '--ratio',
+        '-r', '--ratio',
         type=float,
-        default=[2.25],
-        nargs=1,
-        help='set the aspect ratio of the image')
+        default=2.75,
+        help='set the aspect ratio of the image',
+    )
     parser.add_argument(
-        '-m',
-        '--max-size',
+        '-m', '--max-size',
         type=int,
-        default=[96],
-        nargs=1,
-        help='set the max size of the output')
+        default=96,
+        help='set the max size of the output',
+    )
     parser.add_argument(
         'infile',
         metavar='IMG',
         type=str,
-        nargs=1,
-        help='original image')
-    args = parser.parse_args()
-    return args
+        help='input image',
+    )
+    return parser.parse_args()
 
 
-def to_grayscale(path: str, max_size: int = 96, ratio: float = 2.25) -> Image.Image:
-    image = Image.open(path)
+def to_grayscale(image: Image.Image, max_size: int = 96, ratio: float = 2.75) -> Image.Image:
     if image.size[0] > max_size:
         width = max_size
         height = int(image.size[1] * max_size / image.size[0] / ratio)
@@ -53,7 +49,7 @@ def to_grayscale(path: str, max_size: int = 96, ratio: float = 2.25) -> Image.Im
     return image
 
 
-def make_art(image: Image.Image, charset: str = _DEFAULT_CHARSET) -> Sequence:
+def make_art(image: Image.Image, charset: str = _DEFAULT_CHARSET) -> list[str]:
     pixels = list(image.getdata())
     step = 256 / len(charset)
     width, height = image.size
@@ -67,7 +63,7 @@ def make_art(image: Image.Image, charset: str = _DEFAULT_CHARSET) -> Sequence:
     return art
 
 
-def print_art(art: Sequence):
+def print_art(art: list[str]):
     for line in art:
         for char in line:
             print(char, end='')
@@ -76,8 +72,10 @@ def print_art(art: Sequence):
 
 def main():
     args = get_args()
-    image = to_grayscale(args.infile[0], args.max_size[0], args.ratio[0])
-    print_art(make_art(image, charset=args.charset[0]))
+    image = Image.open(args.infile)
+    image = to_grayscale(image, args.max_size, args.ratio)
+    art = make_art(image, args.charset)
+    print_art(art)
 
 
 if __name__ == '__main__':
